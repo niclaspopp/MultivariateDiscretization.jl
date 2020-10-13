@@ -1,4 +1,3 @@
-push!(LOAD_PATH, "C:/Users/Niclas Popp/.julia/dev/MultivariateDiscretization.jl")
 using MultivariateDiscretization
 using Test
 using CSV
