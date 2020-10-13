@@ -1,6 +1,5 @@
 module MultivariateDiscretization
 
-using Pkg
 using DataFrames
 using CSV
 using StatsBase
