@@ -1,4 +1,4 @@
-push!(LOAD_PATH, pwd())
+push!(LOAD_PATH, "C:/Users/Niclas Popp/.julia/dev/MultivariateDiscretization.jl")
 using MultivariateDiscretization
 using Test
 using CSV
@@ -10,29 +10,23 @@ using Statistics
 using MultivariateStats
 
 
-# number of genes for checking
-genes=30
-# number of cells (first column contains gene names)
-cells=150
+# number of dimensions
+dims=30
+# number of points
+points=150
 
 
-####  CELLDATASET   ####
-celldata_complete= CSV.read("test/data/norm_counts_hvg.csv", DataFrame)
-gene_names = celldata_complete[1:genes,1]
-celldata=celldata_complete[1:genes,1:cells+1]
-norm_type = :log
-Mp = Matrix(celldata[:,2:size(celldata,2)])
-if norm_type == :log
-    Mp=map(x->log.(1+x),Mp)
-end
-dt = fit(UnitRangeTransform, Mp, dims=1, unit=true)
-M = StatsBase.transform(dt, Mp)
-Testdata = Mp .- mean(Mp, dims = 2)
+# generate test dataset
+A = rand(Float64, (dims,dims))
+Σ = A*A'
+μ = rand(dims)
+d1 = MvNormal(μ, 1/4*Σ)
+Testdata = rand(d1,points)
 
-ipd = greedy_IPD(Testdata,genes,20,:km)
-cpd = CPD(Testdata,genes,cells,3,:km,:manual, 5, :Integer)
 bb = BayesianBlocks(Testdata,genes)
 dr = DoaneRule(Testdata,genes)
+cpd = CPD(Testdata, genes, cells, 3, :km, :manual, 20, :none)
+ipd = greedy_IPD(Testdata,genes,35,:km)
 
 
 @testset "MultivariateDiscretization.jl" begin
@@ -52,5 +46,5 @@ dr = DoaneRule(Testdata,genes)
     @test typeof(cjs_cpd) == Array{Float64,2}
     @test typeof(cjs_bb) == Array{Float64,2}
     @test typeof(cjs_dr) == Array{Float64,2}
-    
+
 end
