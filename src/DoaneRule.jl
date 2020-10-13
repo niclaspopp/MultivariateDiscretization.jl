@@ -51,9 +51,7 @@ function DoaneRule(M,ndim)
             results[!,i] = res_temp
         else
 
-            #nbins = Int(round(get_nbins(:fd, M[i,:])))
-            #nbins = get_nbins(:doane, M[i,:])
-            nbins = 20
+            nbins = get_nbins(:doane, M[i,:])
             disc = LinearDiscretizer(binedges(DiscretizeUniformWidth(nbins), M[i,:]))
             results[!,i] = [encode(disc,one) for one in M[i,:]]
 
