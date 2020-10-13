@@ -1,0 +1,13 @@
+name = "MultivariateDiscretization"
+uuid = "dd9280a6-c536-421c-a236-ce8c2c5b1b8d"
+authors = ["Niclas Popp"]
+version = "0.1.0"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
