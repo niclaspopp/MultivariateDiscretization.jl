@@ -323,7 +323,7 @@ end
 function greedy_IPD_cutpoints(M::Array{Float64},ndim::Int64,T::Int64,disc=:km)
 
     results = DataFrame()
-    cuts = DataFrame()
+    #cuts = []
     #results_arr=[]
 
     for i in 1:ndim
@@ -343,13 +343,6 @@ function greedy_IPD_cutpoints(M::Array{Float64},ndim::Int64,T::Int64,disc=:km)
 
         if length(unique(M[i,:]))<=5
 
-            res_temp = zeros(length(M[i,:]))
-
-            for u in 1:length(unique(M[i,:]))
-                res_temp[M[i,:] .== unique(M[i,:])[u]] .= unique(M[i,:])[u]
-            end
-
-            results[!,i] = res_temp
 
         else
 
@@ -375,7 +368,7 @@ function greedy_IPD_cutpoints(M::Array{Float64},ndim::Int64,T::Int64,disc=:km)
 
             end
 
-            cuts[!,i] = cutpoints
+            #push!(cuts,cutpoints)
 
 
             #get the lables
@@ -448,7 +441,7 @@ function greedy_IPD_cutpoints(M::Array{Float64},ndim::Int64,T::Int64,disc=:km)
                 # print("\n")
                 # print(maxpoint)
                 for id in macrobin
-                    results_dim[micro_binned[!,:1] .== id] .= (cuts[!,1][maxpoint]-cuts[!,1][minpoint])/2
+                    results_dim[micro_binned[!,:1] .== id] .= (cutpoints[maxpoint]-cutpoints[minpoint])/2
                 end
 
             end
