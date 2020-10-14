@@ -185,9 +185,10 @@ end
 # ndim: number of dimension
 function greedy_IPD(M::Array{Float64},ndim::Int64,T::Int64,disc=:km)
 
-    results = DataFrame()
+    #results = DataFrame()
     #cuts = DataFrame()
     #results_arr=[]
+    results = zeros(size(M))
 
     for i in 1:ndim
 
@@ -308,7 +309,8 @@ function greedy_IPD(M::Array{Float64},ndim::Int64,T::Int64,disc=:km)
 
             end
 
-            results[!,i] = results_dim
+            #results[!,i] = results_dim
+            results[i,:] = results_dim
         end
 
     end
@@ -322,7 +324,8 @@ end
 
 function greedy_IPD_cutpoints(M::Array{Float64},ndim::Int64,T::Int64,disc=:km)
 
-    results = DataFrame()
+    #results = DataFrame()
+    results = zeros(size(M))
     #cuts = []
     #results_arr=[]
 
@@ -334,6 +337,8 @@ function greedy_IPD_cutpoints(M::Array{Float64},ndim::Int64,T::Int64,disc=:km)
             print(i)
         end
 
+        dimension = "i"
+
         micro_binned = DataFrame();
 
         # label for results in dataframe
@@ -341,14 +346,12 @@ function greedy_IPD_cutpoints(M::Array{Float64},ndim::Int64,T::Int64,disc=:km)
 
         # start by uniform discretization for micro bins, seperate per dimension !!!
 
-        if length(unique(M[i,:]))<=5
-
-
-        else
+        if length(unique(M[i,:]))>5
 
             if length(unique(M[i,:]))<=T
                 T=length(unique(M[i,:]))
             end
+
 
             if disc==:km
                 R = kmeans(vec(M[i,:])',T)
@@ -446,7 +449,7 @@ function greedy_IPD_cutpoints(M::Array{Float64},ndim::Int64,T::Int64,disc=:km)
 
             end
 
-            results.i = results_dim
+            results[i,:] = results_dim
         end
 
     end
