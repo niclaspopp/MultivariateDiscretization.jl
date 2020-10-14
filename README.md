@@ -4,3 +4,12 @@
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/niclaspopp/MultivariateDiscretization.jl?svg=true)](https://ci.appveyor.com/project/niclaspopp/MultivariateDiscretization-jl)
 [![Coverage](https://codecov.io/gh/niclaspopp/MultivariateDiscretization.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/niclaspopp/MultivariateDiscretization.jl)
 [![Coverage](https://coveralls.io/repos/github/niclaspopp/MultivariateDiscretization.jl/badge.svg?branch=master)](https://coveralls.io/github/niclaspopp/MultivariateDiscretization.jl?branch=master)
+
+MultivariateDiscretization.jl is a Julia package that can be used for mulitvariate, interaction preserving discretization. Currently the following methods are implemented:
+
++ Uniform width binning
++ Bayesian Blocks using [Discretizers.jl](https://github.com/Tchanders/Discretizers.jl).
++ [Correlation preserving discretization](https://ieeexplore.ieee.org/document/1490525)
++ [Interaction preserving discretization](https://link.springer.com/article/10.1007/s10618-014-0350-5)
+
+For testing purposes a function to evaluate the [Cumulative Jensen Shannon divergence](http://eda.mmci.uni-saarland.de/prj/cjs/) is included as well.
