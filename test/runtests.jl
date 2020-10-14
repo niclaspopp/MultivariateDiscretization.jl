@@ -35,11 +35,11 @@ ipd = greedy_IPD(Testdata,dims,35,:km)
     @test typeof(bb) == DataFrame
     @test typeof(dr) == DataFrame
 
-    cjs_ipd = CJS_empirical(Matrix(float.(ipd)),genes,cells,200)
-    cjs_cpd = CJS_empirical(Matrix(float.(cpd)),genes,cells,200)
-    cjs_bb = CJS_empirical(Matrix(float.(bb)),genes,cells,200)
-    cjs_dr = CJS_empirical(Matrix(float.(dr)),genes,cells,200)
-    cjs_or = CJS_empirical(Testdata,genes,cells,200)
+    cjs_ipd = CJS_empirical(Matrix(float.(ipd)),dims,points,200)
+    cjs_cpd = CJS_empirical(Matrix(float.(cpd)),dims,points,200)
+    cjs_bb = CJS_empirical(Matrix(float.(bb)),dims,points,200)
+    cjs_dr = CJS_empirical(Matrix(float.(dr)),dims,points,200)
+    cjs_or = CJS_empirical(Testdata,dims,points,200)
 
     @test typeof(cjs_ipd) == Array{Float64,2}
     @test typeof(cjs_cpd) == Array{Float64,2}
