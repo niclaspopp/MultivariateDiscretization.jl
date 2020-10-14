@@ -316,3 +316,144 @@ function greedy_IPD(M::Array{Float64},ndim::Int64,T::Int64,disc=:km)
     return(results)
 
 end
+
+
+
+
+function greedy_IPD_Cutpoints(M::Array{Float64},ndim::Int64,T::Int64,disc=:km)
+
+    results = DataFrame()
+    cuts = DataFrame()
+    #results_arr=[]
+
+    for i in 1:ndim
+
+        if mod(i,100)==0
+            print("\n")
+            print("dimension ")
+            print(i)
+        end
+
+        micro_binned = DataFrame();
+
+        # label for results in dataframe
+        #label = string("dimension"," ",string(i))
+
+        # start by uniform discretization for micro bins, seperate per dimension !!!
+
+        if length(unique(M[i,:]))<=5
+
+            res_temp = zeros(length(M[i,:]))
+
+            for u in 1:length(unique(M[i,:]))
+                res_temp[M[i,:] .== unique(M[i,:])[u]] .= unique(M[i,:])[u]
+            end
+
+            results[!,i] = res_temp
+
+        else
+
+            if length(unique(M[i,:]))<=T
+                T=length(unique(M[i,:]))
+            end
+
+            if disc==:km
+                R = kmeans(vec(M[i,:])',T)
+                cutpoints=zeros(T+1)
+                cutpoints[1]=minimum(M[i,:])
+                cutpoints[T+1]=maximum(M[i,:])
+                centers = sort(R.centers,dims=2)
+                [cutpoints[i] = (centers[i-1]+centers[i])/2 for i in 2:T]
+
+                # discretize the data
+                lindisc = LinearDiscretizer(sort(cutpoints))
+                micro_binned[!, :1] = [encode(lindisc,one) for one in M[i,:]]
+            else
+
+                lindisc = LinearDiscretizer(binedges(DiscretizeUniformWidth(T), M[i,:]))
+                micro_binned[!, :1] = [encode(lindisc,one) for one in M[i,:]]
+
+            end
+
+            results[!,i] = cutpoints
+
+
+            #get the lables
+            labels_micro = sort(unique(micro_binned[:,:1]))
+
+            #initialize number of macro bins
+            k=T
+
+
+            # determine the interaction distances
+            int_dists = get_IDS_largeI(M,micro_binned,labels_micro,ndim,i)
+
+            # determine threshlod for largeI
+            t=determine_threshold(int_dists,T)
+
+            merges=[]
+            for j in labels_micro
+                push!(merges,[j])
+            end
+
+
+            scores=[]
+            # practical score at the beginning
+            MDL_ref=practical_score(M,micro_binned,merges,k-1,t,ndim,T,int_dists)
+            append!(scores,MDL_ref)
+
+            while minimum(scores)<=MDL_ref
+
+                optimal_merge = 0
+
+                if length(merges)>1
+                    for j in 1:length(merges)-1
+
+                        temp_merges = deepcopy(merges)
+                        append!(temp_merges[j],temp_merges[j+1])
+                        deleteat!(temp_merges, j+1)
+
+                        mdl = practical_score(M,micro_binned,temp_merges,k-1,t,ndim,T,int_dists)
+
+                        # check if the current tuple is the best so far
+                        if mdl < minimum(scores)
+                            optimal_merge = j
+                            push!(scores,mdl)
+                        end
+
+                    end
+                end
+
+                if optimal_merge != 0
+
+                    append!(merges[optimal_merge],merges[optimal_merge+1])
+                    deleteat!(merges, optimal_merge+1)
+                    MDL_ref = minimum(scores)
+                    k=k-1
+
+                else
+                    MDL_ref=minimum(scores)-1
+                end
+
+            end
+
+
+            results_dim = zeros(length(M[i,:]))
+            for index in 1:length(merges)
+                macrobin = merges[index]
+                maxpoint = maximum(macrobin)
+                minpoint = minimum(macrobin)
+                for id in macrobin
+                    results_dim[micro_binned[!,:1] .== id] .= (cutpoints[maxpoint]-cutpoints[minpoint])/2
+                end
+
+            end
+
+            results[!,i] = results_dim
+        end
+
+    end
+
+    return(results)
+
+end
