@@ -185,10 +185,10 @@ end
 # ndim: number of dimension
 function greedy_IPD(M::Array{Float64},ndim::Int64,T::Int64,disc=:km)
 
-    #results = DataFrame()
+    results = DataFrame()
     #cuts = DataFrame()
     #results_arr=[]
-    results = zeros(size(M))
+    #results = zeros(size(M))
 
     for i in 1:ndim
 
@@ -309,8 +309,8 @@ function greedy_IPD(M::Array{Float64},ndim::Int64,T::Int64,disc=:km)
 
             end
 
-            #results[!,i] = results_dim
-            results[i,:] = results_dim
+            results[!,i] = results_dim
+            #results[i,:] = results_dim
         end
 
     end
