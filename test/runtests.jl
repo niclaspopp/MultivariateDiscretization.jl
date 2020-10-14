@@ -1,3 +1,4 @@
+using Pkg
 using MultivariateDiscretization
 using Test
 using CSV
@@ -7,6 +8,7 @@ using StatsBase
 using Discretizers
 using Statistics
 using MultivariateStats
+#push!(LOAD_PATH,"C:/Users/Niclas Popp/.julia/dev/MultivariateDiscretization.jl")
 
 
 # number of dimensions
