@@ -18,9 +18,10 @@ include("DoaneRule.jl")
 include("BayesianBlocks.jl")
 include("CPD.jl")
 include("IPD.jl")
+include("UniformWidth.jl")
 include("postprocessing.jl")
 include("benchmark_measures.jl")
 
-export greedy_IPD, CPD, BayesianBlocks, DoaneRule, CJS_empirical
+export greedy_IPD, CPD, BayesianBlocks, DoaneRule, CJS_empirical, UW
 
 end
