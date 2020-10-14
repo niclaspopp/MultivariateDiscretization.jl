@@ -1,5 +1,3 @@
-using Pkg
-using MultivariateDiscretization
 using Test
 using CSV
 using DataFrames
@@ -24,10 +22,10 @@ A = rand(Float64, (dims,dims))
 d1 = MvNormal(μ, 1/4*Σ)
 Testdata = rand(d1,points)
 
-bb = BayesianBlocks(Testdata,genes)
-dr = DoaneRule(Testdata,genes)
-cpd = CPD(Testdata, genes, cells, 3, :km, :manual, 20, :none)
-ipd = greedy_IPD(Testdata,genes,35,:km)
+bb = BayesianBlocks(Testdata,dims)
+dr = DoaneRule(Testdata,dims)
+cpd = CPD(Testdata, dims, points, 3, :km, :manual, 20, :none)
+ipd = greedy_IPD(Testdata,dims,35,:km)
 
 
 @testset "MultivariateDiscretization.jl" begin
