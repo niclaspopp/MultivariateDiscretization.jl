@@ -320,7 +320,7 @@ end
 
 
 
-function greedy_IPD_Cutpoints(M::Array{Float64},ndim::Int64,T::Int64,disc=:km)
+function greedy_IPD_cutpoints(M::Array{Float64},ndim::Int64,T::Int64,disc=:km)
 
     results = DataFrame()
     cuts = DataFrame()

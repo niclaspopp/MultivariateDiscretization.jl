@@ -22,6 +22,6 @@ include("UniformWidth.jl")
 include("postprocessing.jl")
 include("benchmark_measures.jl")
 
-export greedy_IPD, CPD, BayesianBlocks, DoaneRule, CJS_empirical, UW
+export greedy_IPD, greedy_IPD_cutpoints, CPD, BayesianBlocks, DoaneRule, CJS_empirical, UW
 
 end
