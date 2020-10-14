@@ -375,7 +375,7 @@ function greedy_IPD_cutpoints(M::Array{Float64},ndim::Int64,T::Int64,disc=:km)
 
             end
 
-            results[!,i] = cutpoints
+            cuts[!,i] = cutpoints
 
 
             #get the lables
@@ -443,13 +443,17 @@ function greedy_IPD_cutpoints(M::Array{Float64},ndim::Int64,T::Int64,disc=:km)
                 macrobin = merges[index]
                 maxpoint = maximum(macrobin)
                 minpoint = minimum(macrobin)
+                # print("\n")
+                # print(cuts)
+                # print("\n")
+                # print(maxpoint)
                 for id in macrobin
-                    results_dim[micro_binned[!,:1] .== id] .= (cutpoints[maxpoint]-cutpoints[minpoint])/2
+                    results_dim[micro_binned[!,:1] .== id] .= (cuts[!,1][maxpoint]-cuts[!,1][minpoint])/2
                 end
 
             end
 
-            results[!,i] = results_dim
+            results.i = results_dim
         end
 
     end
