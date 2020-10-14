@@ -1,4 +1,6 @@
 using Test
+using Pkg
+Pkg.add("CSV")
 using CSV
 using DataFrames
 using Distributions
