@@ -183,14 +183,14 @@ end
 #M: data
 # nm: number of micro bins
 # ndim: number of dimension
-function greedy_IPD(M::Array{Float64},ndim::Int64,T::Int64,disc=:km)
+function greedy_IPD(M::Array{Float64},ndim::Int64,T::Int64,disc=:km,skip=[])
 
     results = DataFrame()
     #cuts = DataFrame()
     #results_arr=[]
     #results = zeros(size(M))
 
-    for i in 1:ndim
+    for i in setdiff(1:ndim,skip)
 
         if mod(i,100)==0
             print("\n")
