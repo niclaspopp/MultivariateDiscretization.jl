@@ -62,3 +62,29 @@ function DoaneRule(M,ndim)
     return(results)
 
 end
+
+function DoaneRule_cutpoints(M,ndim)
+    results = DataFrame()
+
+    for i in 1:ndim
+
+        if length(unique(M[i,:]))>5
+
+            nbins = get_nbins(:doane, M[i,:])
+            cuts = binedges(DiscretizeUniformWidth(nbins), M[i,:])
+            disc = LinearDiscretizer(cuts)
+            results[!,i] = [encode(disc,one) for one in M[i,:]]
+            results[!,i] = float(results[!,i])
+
+            for j in 1:nbins
+                results[!,i][results[!,i].==j] .= cuts[j]
+            end
+
+
+        end
+
+    end
+
+    return(results)
+
+end
