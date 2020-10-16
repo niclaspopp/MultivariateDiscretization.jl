@@ -86,9 +86,9 @@ function largeI(bin::Array{Int64},interaction_distances::Array{Float64}, thresho
 
 end
 
-function determine_threshold(interaction_distances::Array{Float64},T::Int64)
+function determine_threshold(interaction_distances::Array{Float64},T::Int64,limit::Int64)
 
-    tert=max(1,Int(round((T-1)/20)))
+    tert=max(1,Int(round((T-1)/limit)))
 
     return(sort(interaction_distances)[tert])
 
@@ -183,7 +183,7 @@ end
 #M: data
 # nm: number of micro bins
 # ndim: number of dimension
-function greedy_IPD(M::Array{Float64},ndim::Int64,T::Int64,disc=:km,skip=[])
+function greedy_IPD(M::Array{Float64},ndim::Int64,T::Int64,disc=:km,skip=[],limit=10)
 
     results = DataFrame()
     #cuts = DataFrame()
@@ -201,7 +201,7 @@ function greedy_IPD(M::Array{Float64},ndim::Int64,T::Int64,disc=:km,skip=[])
         micro_binned = DataFrame();
 
         # label for results in dataframe
-        #label = string("dimension"," ",string(i))
+        # label = string("dimension"," ",string(i))
 
         # start by uniform discretization for micro bins, seperate per dimension !!!
 
@@ -251,7 +251,7 @@ function greedy_IPD(M::Array{Float64},ndim::Int64,T::Int64,disc=:km,skip=[])
             int_dists = get_IDS_largeI(M,micro_binned,labels_micro,ndim,i)
 
             # determine threshlod for largeI
-            t=determine_threshold(int_dists,T)
+            t=determine_threshold(int_dists,T,limit)
 
             merges=[]
             for j in labels_micro
