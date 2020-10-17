@@ -459,18 +459,20 @@ function greedy_IPD_cutpoints(M::Array{Float64},ndim::Int64,T::Int64,disc=:km)
 end
 
 
-function greedy_IPD_clustered(M::Array{Float64},ndim::Int64,T::Int64,disc=:km,c=:Int64)
+function greedy_IPD_clustered(M::Array{Float64},ndim::Int64,T::Int64,c::Int64,disc=:km)
 
     results = zeros(size(M))
     C = cor(M')
     clust = hclust(C,linkage=:ward)
     clustered_data = cutree(clust;k=c)
 
-    for i in 1:k
-        selector = results_cluster .== 5
+    for i in 1:c
+        selector = clustered_data .== i
         data = M[selector,:]
-        res = greedy_IPD(Mdata,size(data)[1],T,disc)
-        print(res)
+        print("\n")
+        print(length(data))
+        # res = greedy_IPD(Mdata,size(data)[1],T,disc)
+        # print(res)
 
     end
 
