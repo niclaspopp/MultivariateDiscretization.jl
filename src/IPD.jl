@@ -469,9 +469,9 @@ function greedy_IPD_clustered(M::Array{Float64},ndim::Int64,T::Int64,c::Int64,di
     for i in 1:c
         selector = clustered_data .== i
         data = M[selector,:]
-        res = greedy_IPD(Mdata,size(data)[1],T,disc)
         print("\n")
-        print(res)
+        print(typeof(data))
+        #res = greedy_IPD(data,size(data)[1],T,disc)
         #results[selector,:] =res
 
     end
