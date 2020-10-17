@@ -459,7 +459,7 @@ function greedy_IPD_cutpoints(M::Array{Float64},ndim::Int64,T::Int64,disc=:km)
 end
 
 
-function greedy_IPD(M::Array{Float64},ndim::Int64,T::Int64,disc=:km,c=:Int64)
+function greedy_IPD_clustered(M::Array{Float64},ndim::Int64,T::Int64,disc=:km,c=:Int64)
 
     results = zeros(size(M))
     C = cor(M')
