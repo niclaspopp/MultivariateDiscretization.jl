@@ -1,3 +1,37 @@
+function get_nbins(alg, data)
+
+    n = length(data)
+
+    if alg == :sqrt
+        nbins = ceil(Int, sqrt(n))
+    elseif alg == :sturges
+        nbins = ceil(Int, log(2,n)) + 1
+    elseif alg == :rice
+        nbins = ceil(Int, 2*cbrt(n))
+    elseif alg == :doane
+        g₁ = moment(data, 3)
+        σ = sqrt((6*(n-2))/((n+1)*(n+3)))
+        nbins = ceil(Int, 1 + log(2,n) + log(2, 1+abs(g₁)/σ))
+    elseif alg == :scott
+        σ = std(data)
+        binwidth = 3.5*σ/cbrt(n)
+        lo, hi = extrema(data)
+        nbins = ceil(Int, (hi - lo)/binwidth)
+    elseif alg == :fd
+        binwidth = 2*iqr(data)/cbrt(n)
+        lo, hi = extrema(data)
+        nbins = ceil((hi - lo)/binwidth)
+    else
+        binwidth = 2*iqr(data)/cbrt(n)
+        lo, hi = extrema(data)
+        nbins_fd = ceil(Int, (hi - lo)/binwidth)
+        nbins_sturges = ceil(Int, log(2,n)) + 1
+        nbins = max(nbins_fd, nbins_sturges)
+    end
+
+    return(round(nbins))
+end
+
 # M: data
 # ndim: number of dimensions
 # k: number of eigenvalues to keep
@@ -78,4 +112,24 @@ function CPD(M, ndim::Int64, npoints::Int64, k::Int64, d=:km, bintype=:manual, b
     end
 
     return(results)
+end
+
+function CPD_clustered(M, ndim::Int64, npoints::Int64, c::Int64, p::Float64, d=:km)
+    results = zeros(size(M))
+    C = cor(M')
+    clust = hclust(C,linkage=:ward)
+    clustered_data = cutree(clust;k=c)
+
+    for i in 1:c
+        selector = clustered_data .== i
+        data = M[selector,:]
+        k = Int(ceil(size(data)[1]/p))
+        bins = get_nbins(:doane, data)
+        res = CPD(data,size(data)[1],npoints,k,d,:manual,bins)
+        #print("\n")
+        #print(typeof(res))
+        results[selector,:] .= Array(res)'
+    end
+
+    return(DataFrame(results))
 end
