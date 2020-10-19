@@ -3,7 +3,7 @@ function CJS_empirical(F::Matrix,ndim::Int64,nsamples::Int64,nsteps::Int64)
     results = zeros(ndim,ndim)
 
     for k in 1:ndim
-        for l in 1:ndim
+        for l in k:ndim
             lbound = minimum(F[:,k])
             rbound = maximum(F[:,k])
 
