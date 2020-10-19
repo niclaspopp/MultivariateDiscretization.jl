@@ -1,6 +1,6 @@
 function BayesianBlocks(M,ndim)
 
-    results = DataFrame()
+    results = zeros(size(M))
 
     for i in 1:ndim
 
@@ -11,11 +11,11 @@ function BayesianBlocks(M,ndim)
                 res_temp[M[i,:] .== unique(M[i,:])[u]] .= u
             end
 
-            results[!,i] = res_temp
+            results[i,:] = res_temp
         else
 
             disc = LinearDiscretizer(binedges(DiscretizeBayesianBlocks(), M[i,:]))
-            results[!,i] = [encode(disc,one) for one in M[i,:]]
+            results[i,:] = [encode(disc,one) for one in M[i,:]]
 
         end
 
