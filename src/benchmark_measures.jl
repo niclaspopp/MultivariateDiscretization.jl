@@ -26,7 +26,7 @@ function CJS_empirical(F::Matrix,ndim::Int64,nsamples::Int64,nsteps::Int64)
         end
     end
 
-    return(results)
+    return(results+results')
 end
 
 function edf(data::Array{Float64},x::Float64)
