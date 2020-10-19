@@ -21,7 +21,7 @@ function BayesianBlocks(M,ndim)
 
     end
 
-    return(results)
+    return(DataFrame(results))
 
 end
 
