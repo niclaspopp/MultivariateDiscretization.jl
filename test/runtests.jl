@@ -23,10 +23,10 @@ A = rand(Float64, (dims,dims))
 d1 = MvNormal(μ, 1/4*Σ)
 Testdata = rand(d1,points)
 
-bb = BayesianBlocks(Testdata,dims)
-dr = DoaneRule(Testdata,dims)
-cpd = CPD(Testdata, dims, points, 3, :km, :manual, 20, :none)
-ipd = greedy_IPD(Testdata,dims,35,:km)
+bb = MultivariateDiscretization.BayesianBlocks(Testdata,dims)
+dr = MultivariateDiscretization.DoaneRule(Testdata,dims)
+cpd = MultivariateDiscretization.CPD(Testdata, dims, points, 3, :km, :manual, 20, :none)
+ipd = MultivariateDiscretization.greedy_IPD(Testdata,dims,35,:km)
 
 
 @testset "MultivariateDiscretization.jl" begin
