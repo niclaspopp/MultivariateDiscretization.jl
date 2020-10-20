@@ -1,4 +1,4 @@
-using MultivariateDiscretization
+#using MultivariateDiscretization
 using Test
 using CSV
 using DataFrames
