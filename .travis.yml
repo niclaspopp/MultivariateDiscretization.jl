@@ -3,8 +3,7 @@ language: julia
 notifications:
   email: false
 julia:
-  - 1.5
-  - nightly
+  - 1.0
 os:
   - linux
   - osx
