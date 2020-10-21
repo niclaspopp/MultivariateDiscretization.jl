@@ -4,7 +4,6 @@ using DataFrames
 using CSV
 using StatsBase
 using Discretizers
-using Plots
 using Distributions
 using Statistics
 using LinearAlgebra
