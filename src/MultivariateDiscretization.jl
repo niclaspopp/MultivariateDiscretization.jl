@@ -19,7 +19,6 @@ include("BayesianBlocks.jl")
 include("CPD.jl")
 include("IPD.jl")
 include("UniformWidth.jl")
-include("postprocessing.jl")
 include("benchmark_measures.jl")
 
 export
