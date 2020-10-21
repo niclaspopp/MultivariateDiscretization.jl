@@ -25,6 +25,7 @@ include("benchmark_measures.jl")
 export
     greedy_IPD,
     CPD,
+    CPD_clustered,
     BayesianBlocks,
     DoaneRule,
     CJS_empirical,
