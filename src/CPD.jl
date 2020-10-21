@@ -116,8 +116,8 @@ end
 
 function CPD_clustered(M, ndim::Int64, npoints::Int64, c::Int64, p::Float64, d=:km)
     results = zeros(size(M))
-    C = cor(M')
-    clust = hclust(C,linkage=:ward)
+    SPC = 1/2*(I-corspearman(M'))
+    clust = hclust(SPC,linkage=:ward_presquared)
     clustered_data = cutree(clust;k=c)
 
     for i in 1:c
