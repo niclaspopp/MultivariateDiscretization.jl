@@ -16,8 +16,8 @@ InformationMeasures = "0.3"
 LinearAlgebra = "1"
 MultivariateStats = "0.7"
 Pkg = "1"
-StatsBase = "0.33
-Statistics = "1"
+StatsBase = "0.33"
+Statistics = "0.9"
 
 
 
