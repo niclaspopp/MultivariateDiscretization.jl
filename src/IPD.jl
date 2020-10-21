@@ -462,8 +462,8 @@ end
 function greedy_IPD_clustered(M::Array{Float64},ndim::Int64,T::Int64,c::Int64,disc=:km)
 
     results = zeros(size(M))
-    C = cor(M')
-    clust = hclust(C,linkage=:ward)
+    SPC = 1/2*(I-corspearman(M'))
+    clust = hclust(SPC,linkage=:ward_presquared)
     clustered_data = cutree(clust;k=c)
 
     for i in 1:c
