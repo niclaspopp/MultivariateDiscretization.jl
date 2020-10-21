@@ -29,7 +29,7 @@ Testdata = rand(d1,points)
     dr = MultivariateDiscretization.DoaneRule(Testdata,dims)
     cpd = MultivariateDiscretization.CPD_clustered(Testdata,dims,points,3,float(3))
     ipd = MultivariateDiscretization.greedy_IPD_clustered(Testdata,dims,3,3)
-    uw = MultivariateDiscretization.greedy_IPD_clustered(Testdata,dims,3)
+    uw = MultivariateDiscretization.UW(Testdata,dims,3)
 
     @test typeof(ipd) == DataFrame
     @test typeof(cpd) == DataFrame
