@@ -16,8 +16,8 @@ InformationMeasures = "0.3"
 LinearAlgebra = "1"
 MultivariateStats = "0.7"
 Pkg = "1"
-Plots = "1.6"
-StatsBase = "0.33"
+Plots = "1.4"
+StatsBase = "0.3"
 
 
 [extras]
