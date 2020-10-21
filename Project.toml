@@ -16,7 +16,9 @@ InformationMeasures = "0.3"
 LinearAlgebra = "1"
 MultivariateStats = "0.7"
 Pkg = "1"
-StatsBase = "0.33"
+StatsBase = "0.33
+Statistics = "1"
+
 
 
 [extras]
@@ -38,3 +40,4 @@ LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
 MultivariateStats = "6f286f6a-111f-5878-ab1e-185364afe411"
 Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
 StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
+Statistics = "10745b16-79ce-11e8-11f9-7d13ad32a3b2"
