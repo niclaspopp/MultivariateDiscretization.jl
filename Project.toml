@@ -17,7 +17,7 @@ LinearAlgebra = "1"
 MultivariateStats = "0.7"
 Pkg = "1"
 StatsBase = "0.33"
-Statistics = "0.9"
+Statistics = "1.5"
 
 
 
