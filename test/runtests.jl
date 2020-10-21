@@ -1,10 +1,10 @@
-#using MultivariateDiscretization
+using MultivariateDiscretization
 using Test
-using DataFrames
-using Distributions
-using StatsBase
-using Statistics
-using MultivariateStats
+# using DataFrames
+# using Distributions
+# using StatsBase
+# using Statistics
+# using MultivariateStats
 
 #
 # # number of dimensions
