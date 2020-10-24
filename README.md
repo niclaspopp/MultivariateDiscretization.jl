@@ -4,6 +4,7 @@
 [![Build Status](https://ci.appveyor.com/api/projects/status/github/niclaspopp/MultivariateDiscretization.jl?svg=true)](https://ci.appveyor.com/project/niclaspopp/MultivariateDiscretization-jl)
 [![Coverage](https://codecov.io/gh/niclaspopp/MultivariateDiscretization.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/niclaspopp/MultivariateDiscretization.jl)
 [![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://github.com/niclaspopp/MultivariateDiscretization.jl/blob/master/MultivariateDiscretization/Doc%20v0.1.0.ipynb)
+
 MultivariateDiscretization.jl is a Julia package that can be used for mulitvariate, interaction preserving discretization. Currently the following methods are implemented:
 
 + Uniform width binning
